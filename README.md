@@ -1,2 +1,7 @@
-# devnotes
-everything I've learned up to date
+# DEVELOPER LOG
+
+## HARVARD CS50 07/30/25 - N/A
+
+### COMPLETED PROBLEM SETS: 
+### HELLO.C - 07/30/25
+### MARIO.C - 07/31/25
