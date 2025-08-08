@@ -1,0 +1,41 @@
+### MULTIPLE LINEAR REGRESSION 
+
+## Importing the libraries:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+## Importing the dataset:
+
+# this can be any file or set of data, but make sure every x only has one y
+dataset = pd.read_csv('Salary_Data.csv') 
+# reads every column except for the last one
+X = dataset.iloc[:, :-1].values 
+# reads only the last column
+y = dataset.iloc[:, -1].values 
+
+## Hot Encoding Dataset:
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+# apply the hot encoding to the fourth column which has an index of 3
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [3])], remainder='passthrough')
+X =np.array(ct.fit_transform(X))
+
+## Splitting Dataset Into Training and Test Sets: 
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state = 0 )
+
+## Training Multiple Linear Regression Model: 
+# since it is still a linear regression, use the same code from simple linear regression 
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+## Predict Test Set Result 
+y_pred = regressor.predict(X_test)
+# only show values with two decimal places 
+np.set_printoptions(precision = 2)
+# printing the concatenate but reshaping the predicted so it prints vertically
+print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_pred),1)),1))
