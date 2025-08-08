@@ -1,0 +1,50 @@
+### SIMPLE LINEAR REGRESSIONS
+
+## Importing the libraries:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+## Importing the dataset:
+
+# this can be any file or set of data, but make sure every x only has one y
+dataset = pd.read_csv('Salary_Data.csv') 
+# reads every column except for the last one
+X = dataset.iloc[:, :-1].values 
+# reads only the last column
+y = dataset.iloc[:, -1].values 
+
+## Splitting Dataset Into Training and Test Sets: 
+
+from sklearn.model_selection import train_test_split
+# allocates 33.3% for test set and rest for training set
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 1/3, random_state = 0 )
+
+## Training The Simple Linear Regression Model On Training Set
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+## Predict Results 
+y_pred = regressor.predict(X_test)
+
+## Visualise Training Set Result 
+# *note* only linear regressions can be visualised because linear and is 1D
+
+plt.scatter(X_train, y_train, color = 'red')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.title('Salary vs Experience(Training Set)')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.show()
+
+## Visualise Test Set Result 
+# *note* only linear regressions can be visualised because linear and is 1D
+
+plt.scatter(X_test, y_test, color = 'red')
+plt.plot(X_train, regressor.predict(X_train), color = 'blue')
+plt.title('Salary vs Experience(Training Set)')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.show()
